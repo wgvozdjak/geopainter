@@ -245,6 +245,9 @@
   <ItemGroup>
     <ClInclude Include="include\geopainter.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="src\Display.h" />
+    <ClInclude Include="src\Point.h" />
+    <ClInclude Include="src\Shape.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
