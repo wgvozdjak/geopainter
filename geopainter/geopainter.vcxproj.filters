@@ -10,6 +10,8 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="src\geopainter.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="src\Point.cpp" />
+    <ClCompile Include="src\Display.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\geopainter.h" />

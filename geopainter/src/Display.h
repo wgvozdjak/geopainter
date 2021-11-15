@@ -4,6 +4,8 @@
 
 #include <include/geopainter.h>
 
+namespace gp = geopainter;
+
 namespace geopainter
 {
 	class Display
@@ -11,7 +13,7 @@ namespace geopainter
 	public:
 		// TODO: Display();
 		// TODO: Viewer getViewer()
-		// TODO: Point createPoint(double x, double y, double z)
+		gp::Point* createPoint(double x, double y, double z);
 		// TODO: Lne createLine(Point p1, Point p2)
 		// TODO: Polygon createPolygon(vector<Point> vertices)
 		// TODO: Bag createBag(vector<Shape> shapes)
