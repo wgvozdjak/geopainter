@@ -10,15 +10,15 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="src\geopainter.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="src\Point.cpp" />
-    <ClCompile Include="src\Display.cpp" />
+    <ClCompile Include="src\point.cpp" />
+    <ClCompile Include="src\display.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\geopainter.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="src\Display.h" />
-    <ClInclude Include="src\Shape.h" />
-    <ClInclude Include="src\Point.h" />
+    <ClInclude Include="src\display.h" />
+    <ClInclude Include="src\shape.h" />
+    <ClInclude Include="src\point.h" />
   </ItemGroup>
 </Project>

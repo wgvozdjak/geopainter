@@ -1,6 +1,17 @@
-#include <src/Point.h>
+#include "pch.h"
+
+#include "display.h"
+#include "point.h"
 
 namespace gp = geopainter;
+
+gp::Point::Point(gp::Display* display, double x, double y, double z)
+{
+	display_ = display;
+	x_ = x;
+	y_ = y;
+	z_ = z;
+}
 
 void gp::Point::draw()
 {

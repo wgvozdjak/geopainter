@@ -1,13 +1,7 @@
-﻿#pragma once
-
-#ifndef VECTOR_
-#define VECTOR_
-#include <vector>
-#endif
-
-#ifndef GEOPAINTER_H_
+﻿#ifndef GEOPAINTER_H_
 #define GEOPAINTER_H_
-#include <src/Display.h>
-#include <src/Shape.h>
-#include <src/Point.h>
+
+#include "src/display.h"
+#include "src/shape.h"
+#include "src/point.h"
 #endif

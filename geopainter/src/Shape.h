@@ -1,9 +1,10 @@
-#pragma once
-
-#include <include/geopainter.h>
+#ifndef SHAPE_H_
+#define SHAPE_H_
 
 namespace geopainter
 {
+	class Display;
+
 	class Shape
 	{
 	public:
@@ -15,5 +16,10 @@ namespace geopainter
 		virtual void dilate(double scale_factor) = 0;
 		// TODO: virtual void setColor(color) = 0;
 		// TODO: virtual Color getColor() = 0;
+
+	protected:
+		Display* display_;
 	};
 }
+
+#endif

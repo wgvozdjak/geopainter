@@ -1,11 +1,16 @@
-#pragma once
+#ifndef POINT_H_
+#define POINT_H_
 
-#include <include/geopainter.h>
+#include "shape.h"
 
 namespace geopainter
 {
+	class Display;
+
 	class Point : public Shape
 	{
+		friend class Display;
+
 	public:
 		void draw();
 		void erase();
@@ -16,9 +21,13 @@ namespace geopainter
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
 
-	/*private:
-		int x;
-		int y;
-		int z;*/
+	private:
+		double x_;
+		double y_;
+		double z_;
+
+		Point(Display* display, double x, double y, double z);
 	};
 }
+
+#endif
