@@ -1,5 +1,5 @@
-#ifndef POINT_H_
-#define POINT_H_
+#ifndef SRC_POINT_H_
+#define SRC_POINT_H_
 
 #include "shape.h"
 
@@ -12,8 +12,6 @@ namespace geopainter
 		friend class Display;
 
 	public:
-		void draw();
-		void erase();
 		void translate(double dx, double dy, double dz);
 		void move(double x, double y, double z);
 		void rotate(double x, double y, double z, double angle);

@@ -1,7 +1,7 @@
-#ifndef DISPLAY_H_
-#define DISPLAY_H_
+#ifndef SRC_DISPLAY_H_
+#define SRC_DISPLAY_H_
 
-#include <vector>
+#include <set>
 #include <Microsoft.Graphics.Canvas.native.h>
 
 using namespace Microsoft::Graphics::Canvas;
@@ -14,7 +14,9 @@ namespace geopainter
 	class Display
 	{
 	public:
-		// TODO: Display();
+		friend class Shape;
+
+		Display(CanvasDrawingSession^ drawing_session);
 		// TODO: Viewer getViewer()
 		Point* createPoint(double x, double y, double z);
 		// TODO: Line createLine(Point p1, Point p2)
@@ -28,7 +30,7 @@ namespace geopainter
 
 	private:
 		CanvasDrawingSession^ drawing_session_;
-		std::vector<Shape> list_of_shapes;
+		std::set<Shape> list_of_shapes_;
 	};
 }
 

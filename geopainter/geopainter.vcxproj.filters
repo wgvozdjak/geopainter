@@ -12,6 +12,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="src\point.cpp" />
     <ClCompile Include="src\display.cpp" />
+    <ClCompile Include="src\shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\geopainter.h" />

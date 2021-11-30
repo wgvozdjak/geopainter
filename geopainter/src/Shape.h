@@ -1,5 +1,5 @@
-#ifndef SHAPE_H_
-#define SHAPE_H_
+#ifndef SRC_SHAPE_H_
+#define SRC_SHAPE_H_
 
 namespace geopainter
 {
@@ -8,8 +8,8 @@ namespace geopainter
 	class Shape
 	{
 	public:
-		virtual void draw() = 0;
-		virtual void erase() = 0;
+		void draw();
+		void erase();
 		virtual void translate(double dx, double dy, double dz) = 0;
 		virtual void move(double x, double y, double z) = 0;
 		virtual void rotate(double x, double y, double z, double angle) = 0;

@@ -13,24 +13,18 @@ gp::Point::Point(gp::Display* display, double x, double y, double z)
 	z_ = z;
 }
 
-void gp::Point::draw()
-{
-	throw "geopainter::Point::draw() has not been implemented yet.";
-}
-
-void gp::Point::erase()
-{
-	throw "geopainter::Point::erase() has not been implemented yet.";
-}
-
 void gp::Point::translate(double dx, double dy, double dz)
 {
-	throw "geopainter::Point::translate(double dx, double dy, double dz) has not been implemented yet.";
+	x_ += dx;
+	y_ += dy;
+	z_ += dz;
 }
 
 void gp::Point::move(double x, double y, double z)
 {
-	throw "geopainter::Point::move(double x, double y, double z) has not been implemented yet.";
+	x_ = x;
+	y_ = y;
+	z_ = z;
 }
 
 void gp::Point::rotate(double x, double y, double z, double angle)
