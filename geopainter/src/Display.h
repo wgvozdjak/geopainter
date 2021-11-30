@@ -2,6 +2,9 @@
 #define DISPLAY_H_
 
 #include <vector>
+#include <Microsoft.Graphics.Canvas.native.h>
+
+using namespace Microsoft::Graphics::Canvas;
 
 namespace geopainter
 {
@@ -24,6 +27,7 @@ namespace geopainter
 		// TODO: void setBackgroundColor(Color color)
 
 	private:
+		CanvasDrawingSession^ drawing_session_;
 		std::vector<Shape> list_of_shapes;
 	};
 }
