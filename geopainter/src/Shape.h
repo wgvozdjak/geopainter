@@ -1,6 +1,8 @@
 #ifndef SRC_SHAPE_H_
 #define SRC_SHAPE_H_
 
+#include <Microsoft.Graphics.Canvas.native.h>
+
 namespace geopainter
 {
 	class Display;
@@ -19,6 +21,8 @@ namespace geopainter
 
 	protected:
 		Display* display_;
+
+		//virtual void drawShape(CanvasRenderTarget^ render_target) = 0;
 	};
 }
 

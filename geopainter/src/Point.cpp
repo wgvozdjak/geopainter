@@ -36,3 +36,24 @@ void gp::Point::dilate(double scale_factor)
 {
 	throw "geopainter::Point::dilate(double scale_factor) has not been implemented yet.";
 }
+
+// temporary functions to test drawing
+double gp::Point::getX()
+{
+	return x_;
+}
+
+double gp::Point::getY()
+{
+	return y_;
+}
+
+double gp::Point::getZ()
+{
+	return z_;
+}
+
+/*void gp::Point::drawShape(CanvasRenderTarget^ render_target)
+{
+
+}*/

@@ -19,12 +19,19 @@ namespace geopainter
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
 
+		// temporary functions to test drawing
+		double getX();
+		double getY();
+		double getZ();
+
 	private:
 		double x_;
 		double y_;
 		double z_;
 
 		Point(Display* display, double x, double y, double z);
+
+		//void drawShape(CanvasRenderTarget^ render_target);
 	};
 }
 

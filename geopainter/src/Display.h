@@ -1,7 +1,7 @@
 #ifndef SRC_DISPLAY_H_
 #define SRC_DISPLAY_H_
 
-#include <set>
+#include <unordered_set>
 #include <Microsoft.Graphics.Canvas.native.h>
 
 using namespace Microsoft::Graphics::Canvas;
@@ -28,9 +28,18 @@ namespace geopainter
 		// TODO: void setWindowSize(int width, int height)
 		// TODO: void setBackgroundColor(Color color)
 
+		// temporary helper function to test drawing
+		void drawAllShapes();
+
 	private:
+		void addShape(Shape* shape);
+		void removeShape(Shape* shape);
+
 		CanvasDrawingSession^ drawing_session_;
-		std::set<Shape> list_of_shapes_;
+		std::unordered_set<Shape*> list_of_shapes_;
+
+		// temporary functions to test drawing
+		void immediatelyDisplayShape(Point* point);
 	};
 }
 
