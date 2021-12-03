@@ -1,13 +1,18 @@
 #ifndef SRC_SHAPE_H_
 #define SRC_SHAPE_H_
 
+#ifndef INCLUDE_GEOPAINTER_H_
+#define INCLUDE_GEOPAINTER_H_
+#include "include/geopainter.h"
+#endif
+
 #include <Microsoft.Graphics.Canvas.native.h>
 
 namespace geopainter
 {
 	class Display;
 
-	class Shape
+	class GEOPAINTER_API Shape
 	{
 	public:
 		void draw();

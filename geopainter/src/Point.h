@@ -3,11 +3,16 @@
 
 #include "shape.h"
 
+#ifndef INCLUDE_GEOPAINTER_H_
+#define INCLUDE_GEOPAINTER_H_
+#include "include/geopainter.h"
+#endif
+
 namespace geopainter
 {
 	class Display;
 
-	class Point : public Shape
+	class GEOPAINTER_API Point : public Shape
 	{
 		friend class Display;
 

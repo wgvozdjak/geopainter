@@ -1,6 +1,11 @@
 #ifndef SRC_DISPLAY_H_
 #define SRC_DISPLAY_H_
 
+#ifndef INCLUDE_GEOPAINTER_H_
+#define INCLUDE_GEOPAINTER_H_
+#include "include/geopainter.h"
+#endif
+
 #include <unordered_set>
 #include <Microsoft.Graphics.Canvas.native.h>
 
@@ -11,7 +16,7 @@ namespace geopainter
 	class Shape;
 	class Point;
 
-	class Display
+	class GEOPAINTER_API Display
 	{
 	public:
 		friend class Shape;
