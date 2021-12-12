@@ -1,7 +1,8 @@
 #include "pch.h"
 
-#include "display.h"
-#include "point.h"
+//#include "display.h"
+//#include "point.h"
+#include "include/geopainter.h"
 
 namespace gp = geopainter;
 
