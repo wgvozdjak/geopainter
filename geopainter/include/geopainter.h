@@ -95,6 +95,25 @@ namespace geopainter
 
 		//void drawShape(CanvasRenderTarget^ render_target);
 	};
+
+	class GEOPAINTER_API Line : public Shape
+	{
+		friend class Display;
+
+	public:
+		void translate(double dx, double dy, double dz);
+		void move(double x, double y, double z);
+		void rotate(double x, double y, double z, double angle);
+		void dilate(double scale_factor);
+		// TODO: void setColor(color);
+		// TODO: Color getColor();
+
+	private:
+		Point* p1_;
+		Point* p2_;
+
+		Line(Display* display, Point* p1, Point* p2);
+	};
 }
 
 #endif
