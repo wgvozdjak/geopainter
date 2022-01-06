@@ -51,6 +51,15 @@ double gp::Point::getZ()
 	return z_;
 }
 
+void gp::Point::show()
+{
+	// project point into 2D
+	std::pair<double, double> projected_point = display_->projectLocation(x_, y_, z_);
+
+	// draw projected point to screen
+	display_->showPoint(projected_point.first, projected_point.second);
+}
+
 /*void gp::Point::drawShape(CanvasRenderTarget^ render_target)
 {
 

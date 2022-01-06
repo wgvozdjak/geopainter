@@ -10,13 +10,33 @@
 #define GEOPAINTER_API __declspec(dllimport)
 #endif
 
+#undef min
+#undef max
+
 using namespace Microsoft::Graphics::Canvas;
 
 namespace geopainter
 {
+	class Viewer;
 	class Display;
 	class Shape;
 	class Point;
+	class Line;
+
+	class GEOPAINTER_API Viewer
+	{
+		friend class Display;
+
+	public:
+	private:
+		Viewer();
+
+		std::tuple<double, double, double> getLocation();
+
+		double x_;
+		double y_;
+		double z_;
+	};
 
 	class GEOPAINTER_API Display
 	{
@@ -26,20 +46,19 @@ namespace geopainter
 		Display(CanvasDrawingSession^ drawing_session);
 		// TODO: Viewer getViewer()
 		Point* createPoint(double x, double y, double z);
-		// TODO: Line createLine(Point p1, Point p2)
+		Line* createLine(Point* p1, Point* p2);
 		// TODO: Polygon createPolygon(vector<Point> vertices)
 		// TODO: Bag createBag(vector<Shape> shapes)
 		// TODO: void deleteShape(Shape shape)
 		// TODO: void deleteAll()
-		// TODO: void flip()
+		void flip();
 		// TODO: void setWindowSize(int width, int height)
 		// TODO: void setBackgroundColor(Color color)
 
-		// temporary helper function to test drawing
-		void drawAllShapes();
-
-		// temporary functions to test drawing
-		void immediatelyDisplayShape(Point* point);
+		// TODO: find a way to not expose this to the user
+		std::pair<double, double> projectLocation(double x, double y, double z);
+		void showPoint(double x, double y);
+		void showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint);
 
 	private:
 		void addShape(Shape* shape);
@@ -47,8 +66,7 @@ namespace geopainter
 
 		CanvasDrawingSession^ drawing_session_;
 		std::unordered_set<Shape*> list_of_shapes_;
-
-		
+		Viewer viewer_;
 	};
 
 	class GEOPAINTER_API Shape
@@ -63,10 +81,11 @@ namespace geopainter
 		// TODO: virtual void setColor(color) = 0;
 		// TODO: virtual Color getColor() = 0;
 
+		// TODO: revisit visibility of this
+		virtual void show() = 0;
+
 	protected:
 		Display* display_;
-
-		//virtual void drawShape(CanvasRenderTarget^ render_target) = 0;
 	};
 
 	class GEOPAINTER_API Point : public Shape
@@ -81,10 +100,13 @@ namespace geopainter
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
 
-		// temporary functions to test drawing
+		// TODO: decide if this is the best way
 		double getX();
 		double getY();
 		double getZ();
+
+	protected:
+		void show();
 
 	private:
 		double x_;
@@ -92,8 +114,6 @@ namespace geopainter
 		double z_;
 
 		Point(Display* display, double x, double y, double z);
-
-		//void drawShape(CanvasRenderTarget^ render_target);
 	};
 
 	class GEOPAINTER_API Line : public Shape
@@ -107,6 +127,9 @@ namespace geopainter
 		void dilate(double scale_factor);
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
+
+	protected:
+		void show();
 
 	private:
 		Point* p1_;
