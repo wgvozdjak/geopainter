@@ -2,14 +2,21 @@
 #include "include/geopainter.h"
 #include "gatl/ga4e.hpp"
 
+#include <Microsoft.Graphics.Canvas.native.h>
+
 namespace gp = geopainter;
 
 using namespace ga4e;
+using namespace Microsoft::Graphics::Canvas;
 
 gp::Display::Display(CanvasDrawingSession^ drawing_session)
 {
 	drawing_session_ = drawing_session;
 	gp::Viewer viewer_;
+
+	// TODO: use this for flipping
+	// http://microsoft.github.io/Win2D/WinUI2/html/Offscreen.htm
+	CanvasDevice^ device = CanvasDevice::GetSharedDevice();
 }
 
 gp::Point* gp::Display::createPoint(double x, double y, double z)
