@@ -32,12 +32,12 @@ void gp::Line::dilate(double scale_factor)
 	throw "geopainter::Line::dilate(double scale_factor) has not been implemented yet.";
 }
 
-void gp::Line::show()
+void gp::Line::show(CanvasDrawingSession^ current_drawing_session)
 {
 	// project endpoints into 2D
 	std::pair<double, double> projected_first_endpoint = display_->projectLocation(p1_->getX(), p1_->getY(), p1_->getZ());
 	std::pair<double, double> projected_second_endpoint = display_->projectLocation(p2_->getX(), p2_->getY(), p2_->getZ());
 
 	// draw projected point onto screen
-	display_->showLine(projected_first_endpoint, projected_second_endpoint);
+	display_->showLine(projected_first_endpoint, projected_second_endpoint, current_drawing_session);
 }

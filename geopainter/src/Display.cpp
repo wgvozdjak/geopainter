@@ -16,7 +16,9 @@ gp::Display::Display(CanvasDrawingSession^ drawing_session)
 
 	// TODO: use this for flipping
 	// http://microsoft.github.io/Win2D/WinUI2/html/Offscreen.htm
-	CanvasDevice^ device = CanvasDevice::GetSharedDevice();
+	//CanvasDevice^ device = CanvasDevice::GetSharedDevice();
+	CanvasDevice^ device = drawing_session_->Device;
+	device_ = device;
 }
 
 gp::Point* gp::Display::createPoint(double x, double y, double z)
@@ -87,21 +89,30 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	return { x_coordinate * 300, y_coordinate * 300 };
 }
 
-void gp::Display::showPoint(double x, double y)
+void gp::Display::showPoint(double x, double y, CanvasDrawingSession^ current_drawing_session)
 {
-	drawing_session_->DrawCircle(x, y, 1, Windows::UI::Colors::Red, 1);
+	current_drawing_session->DrawCircle(x, y, 1, Windows::UI::Colors::Red, 1);
 }
 
-void gp::Display::showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint)
+void gp::Display::showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint, CanvasDrawingSession^ current_drawing_session)
 {
-	drawing_session_->DrawLine(first_endpoint.first, first_endpoint.second, second_endpoint.first, second_endpoint.second, Windows::UI::Colors::Black, 1);
+	current_drawing_session->DrawLine(first_endpoint.first, first_endpoint.second, second_endpoint.first, second_endpoint.second, Windows::UI::Colors::Black, 1);
 }
 
 // TODO: current implementation does not flip two displays, instead just draws everything to the current display
 void gp::Display::flip()
 {
+	CanvasRenderTarget^ offscreen = ref new CanvasRenderTarget(device_, 1000, 750, drawing_session_->Dpi);
+	CanvasDrawingSession^ current_drawing_session = offscreen->CreateDrawingSession();
+
+	current_drawing_session->Clear(Windows::UI::Colors::White);
 	for (gp::Shape* shape : list_of_shapes_)
 	{
-		shape->show();
+		shape->show(current_drawing_session);
 	}
+
+	//current_drawing_session->DrawCircle(100, 100, 100, Windows::UI::Colors::Red, 100);
+
+	drawing_session_->DrawImage(offscreen);
+	delete current_drawing_session;
 }
