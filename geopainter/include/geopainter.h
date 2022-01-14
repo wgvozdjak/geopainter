@@ -44,7 +44,8 @@ namespace geopainter
 		friend class Shape;
 
 		// Creates a new Display attached to a CanvasDrawingSession object
-		Display(CanvasDrawingSession^ drawing_session);
+		//Display(CanvasDrawingSession^ drawing_session);
+		Display();
 		// TODO: Viewer getViewer()
 
 		// Returns a pointer to a new Point object at coordinates (x, y, z)
@@ -60,7 +61,7 @@ namespace geopainter
 
 		// TODO: find better word for buffer
 		// Draws all objects in the buffer to to screen
-		void flip();
+		void flip(CanvasDrawingSession^ drawing_session);
 
 		// TODO: void setWindowSize(int width, int height)
 		// TODO: void setBackgroundColor(Color color)

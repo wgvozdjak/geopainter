@@ -9,7 +9,7 @@ namespace gp = geopainter;
 using namespace ga4e;
 using namespace Microsoft::Graphics::Canvas;
 
-gp::Display::Display(CanvasDrawingSession^ drawing_session)
+/*gp::Display::Display(CanvasDrawingSession^ drawing_session)
 {
 	drawing_session_ = drawing_session;
 	gp::Viewer viewer_;
@@ -19,6 +19,11 @@ gp::Display::Display(CanvasDrawingSession^ drawing_session)
 	//CanvasDevice^ device = CanvasDevice::GetSharedDevice();
 	CanvasDevice^ device = drawing_session_->Device;
 	device_ = device;
+}*/
+
+gp::Display::Display()
+{
+	gp::Viewer viewer_;
 }
 
 gp::Point* gp::Display::createPoint(double x, double y, double z)
@@ -100,19 +105,19 @@ void gp::Display::showLine(std::pair<double, double> first_endpoint, std::pair<d
 }
 
 // TODO: current implementation does not flip two displays, instead just draws everything to the current display
-void gp::Display::flip()
+void gp::Display::flip(CanvasDrawingSession^ drawing_session)
 {
-	CanvasRenderTarget^ offscreen = ref new CanvasRenderTarget(device_, 1000, 750, drawing_session_->Dpi);
-	CanvasDrawingSession^ current_drawing_session = offscreen->CreateDrawingSession();
+	//CanvasRenderTarget^ offscreen = ref new CanvasRenderTarget(device_, 1000, 750, drawing_session_->Dpi);
+	//CanvasDrawingSession^ current_drawing_session = offscreen->CreateDrawingSession();
 
-	current_drawing_session->Clear(Windows::UI::Colors::White);
+	//current_drawing_session->Clear(Windows::UI::Colors::White);
 	for (gp::Shape* shape : list_of_shapes_)
 	{
-		shape->show(current_drawing_session);
+		shape->show(drawing_session);
 	}
 
 	//current_drawing_session->DrawCircle(100, 100, 100, Windows::UI::Colors::Red, 100);
 
-	drawing_session_->DrawImage(offscreen);
-	delete current_drawing_session;
+	//drawing_session_->DrawImage(offscreen);
+	//delete current_drawing_session;
 }
