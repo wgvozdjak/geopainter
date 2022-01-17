@@ -9,18 +9,6 @@ namespace gp = geopainter;
 using namespace ga4e;
 using namespace Microsoft::Graphics::Canvas;
 
-/*gp::Display::Display(CanvasDrawingSession^ drawing_session)
-{
-	drawing_session_ = drawing_session;
-	gp::Viewer viewer_;
-
-	// TODO: use this for flipping
-	// http://microsoft.github.io/Win2D/WinUI2/html/Offscreen.htm
-	//CanvasDevice^ device = CanvasDevice::GetSharedDevice();
-	CanvasDevice^ device = drawing_session_->Device;
-	device_ = device;
-}*/
-
 gp::Display::Display()
 {
 	gp::Viewer viewer_;
@@ -59,15 +47,14 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 
 	auto z_displacement = -0.75 * e3;
 
-	auto plane_point_one = e4 + z_displacement;
-	auto plane_point_two = e4 + e1 + z_displacement;
-	auto plane_point_three = e4 + e2 + z_displacement;
+	auto plane_origin = e4 + z_displacement;
+	auto plane_direction_one = e4 + e1 + z_displacement;
+	auto plane_direction_two = e4 + e2 + z_displacement;
 
 	auto focus = e1 * std::get<0>(viewer_location) + e2 * std::get<1>(viewer_location) + e3 * std::get<2>(viewer_location) + e4;
 
 	// find display plane: outer product of three points on plane
-	//auto plane = op(op(plane_point_one, plane_point_two), plane_point_three);
-	auto plane = plane_point_one ^ plane_point_two ^ plane_point_three;
+	auto plane = plane_origin ^ plane_direction_one ^ plane_direction_two;
 
 	// find line between focus on point to be projected: outer product of focus and point
 	auto line = focus ^ point_to_project;
@@ -80,13 +67,13 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	auto scaled_intersection = intersection / (intersection | e4);
 	
 	// --- COMPUTE 2D COORDINATES TO BE USED IN DRAWING FROM 4D COORDINATES ---
-	auto point_relative_to_origin = scaled_intersection - plane_point_one;
+	auto point_relative_to_origin = scaled_intersection - plane_origin;
 
-	auto plane_point_two_vector = plane_point_two - plane_point_one;
-	auto plane_point_three_vector = plane_point_three - plane_point_one;
+	auto plane_direction_one_vector = plane_direction_one - plane_origin;
+	auto plane_direction_two_vector = plane_direction_two - plane_origin;
 
-	auto point_x_projection = igp(point_relative_to_origin | plane_point_two_vector, plane_point_two_vector);
-	auto point_y_projection = igp(point_relative_to_origin | plane_point_three_vector, plane_point_three_vector);
+	auto point_x_projection = igp(point_relative_to_origin | plane_direction_one_vector, plane_direction_one_vector);
+	auto point_y_projection = igp(point_relative_to_origin | plane_direction_two_vector, plane_direction_two_vector);
 
 	double x_coordinate = rnorm(point_x_projection);
 	double y_coordinate = rnorm(point_y_projection);
@@ -104,20 +91,11 @@ void gp::Display::showLine(std::pair<double, double> first_endpoint, std::pair<d
 	current_drawing_session->DrawLine(first_endpoint.first, first_endpoint.second, second_endpoint.first, second_endpoint.second, Windows::UI::Colors::Black, 1);
 }
 
-// TODO: current implementation does not flip two displays, instead just draws everything to the current display
 void gp::Display::flip(CanvasDrawingSession^ drawing_session)
 {
-	//CanvasRenderTarget^ offscreen = ref new CanvasRenderTarget(device_, 1000, 750, drawing_session_->Dpi);
-	//CanvasDrawingSession^ current_drawing_session = offscreen->CreateDrawingSession();
-
-	//current_drawing_session->Clear(Windows::UI::Colors::White);
+	// loop through list_of_shapes_ and show each one
 	for (gp::Shape* shape : list_of_shapes_)
 	{
 		shape->show(drawing_session);
 	}
-
-	//current_drawing_session->DrawCircle(100, 100, 100, Windows::UI::Colors::Red, 100);
-
-	//drawing_session_->DrawImage(offscreen);
-	//delete current_drawing_session;
 }

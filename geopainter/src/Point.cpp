@@ -35,7 +35,7 @@ void gp::Point::dilate(double scale_factor)
 	throw "geopainter::Point::dilate(double scale_factor) has not been implemented yet.";
 }
 
-// temporary functions to test drawing
+// TODO: decide if these are needed
 double gp::Point::getX()
 {
 	return x_;
@@ -59,8 +59,3 @@ void gp::Point::show(CanvasDrawingSession^ current_drawing_session)
 	// draw projected point to screen
 	display_->showPoint(projected_point.first, projected_point.second, current_drawing_session);
 }
-
-/*void gp::Point::drawShape(CanvasRenderTarget^ render_target)
-{
-
-}*/

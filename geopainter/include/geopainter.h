@@ -75,9 +75,6 @@ namespace geopainter
 		void addShape(Shape* shape);
 		void removeShape(Shape* shape);
 
-		CanvasDrawingSession^ drawing_session_;
-		CanvasDevice^ device_;
-
 		std::unordered_set<Shape*> list_of_shapes_;
 		Viewer viewer_;
 	};

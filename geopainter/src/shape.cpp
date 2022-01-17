@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "include/geopainter.h"
 
-
 namespace gp = geopainter;
 
 void gp::Shape::draw()
