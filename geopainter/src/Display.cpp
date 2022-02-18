@@ -36,6 +36,21 @@ void gp::Display::removeShape(gp::Shape* shape)
 	list_of_shapes_.erase(shape);
 }
 
+void gp::Display::deleteShape(gp::Shape* shape)
+{
+	removeShape(shape);
+	delete shape;
+}
+
+void gp::Display::deleteAll()
+{
+	for (gp::Shape* shape : list_of_shapes_)
+	{
+		delete shape;
+	}
+	list_of_shapes_.clear();
+}
+
 std::pair<double, double> gp::Display::projectLocation(double x, double y, double z)
 {
 	// --- PROJECT POINT (x, y, z) IN 4D ---

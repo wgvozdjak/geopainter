@@ -56,8 +56,8 @@ namespace geopainter
 
 		// TODO: Polygon createPolygon(vector<Point> vertices)
 		// TODO: Bag createBag(vector<Shape> shapes)
-		// TODO: void deleteShape(Shape shape)
-		// TODO: void deleteAll()
+		void deleteShape(Shape* shape);
+		void deleteAll();
 
 		// TODO: find better word for buffer
 		// Draws all objects in the buffer to to screen
