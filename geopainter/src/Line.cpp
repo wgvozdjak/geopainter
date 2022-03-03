@@ -24,7 +24,8 @@ void gp::Line::move(double x, double y, double z)
 
 void gp::Line::rotate(double x, double y, double z, double angle)
 {
-	throw "geopainter::Line::rotate(double x, double y, double z, double angle) has not been implemented yet.";
+	p1_->rotate(x, y, z, angle);
+	p2_->rotate(x, y, z, angle);
 }
 
 void gp::Line::dilate(double scale_factor)
@@ -40,4 +41,12 @@ void gp::Line::show(CanvasDrawingSession^ current_drawing_session)
 
 	// draw projected point onto screen
 	display_->showLine(projected_first_endpoint, projected_second_endpoint, current_drawing_session);
+}
+
+std::pair<std::tuple<double, double, double>, std::tuple<double, double, double>> gp::Line::getLocation()
+{
+	std::tuple<double, double, double> first_endpoint = p1_->getLocation();
+	std::tuple<double, double, double> second_endpoint = p2_->getLocation();
+
+	return { first_endpoint, second_endpoint };
 }

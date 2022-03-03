@@ -117,6 +117,9 @@ namespace geopainter
 
 		void show(CanvasDrawingSession^ current_drawing_session);
 
+		// TODO: determine if this is the best way to allow the user to get the location of a Point
+		std::tuple<double, double, double> getLocation();
+
 	private:
 		double x_;
 		double y_;
@@ -136,6 +139,9 @@ namespace geopainter
 		void dilate(double scale_factor);
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
+
+		// TODO: determine if this is the best way to allow the user to get the location of a Line
+		std::pair<std::tuple<double, double, double>, std::tuple<double, double, double>> getLocation();
 
 		void show(CanvasDrawingSession^ current_drawing_session);
 

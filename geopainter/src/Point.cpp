@@ -1,7 +1,12 @@
 #include "pch.h"
 #include "include/geopainter.h"
+#include "gatl/ga3e.hpp"
+
+#include <math.h>
 
 namespace gp = geopainter;
+
+using namespace ga3e;
 
 gp::Point::Point(gp::Display* display, double x, double y, double z)
 {
@@ -27,7 +32,28 @@ void gp::Point::move(double x, double y, double z)
 
 void gp::Point::rotate(double x, double y, double z, double angle)
 {
-	throw "geopainter::Point::rotate(double x, double y, double z, double angle) has not been implemented yet.";
+	double norm = rnorm(x * e1 + y * e2 + z * e3);
+	x /= norm;
+	y /= norm;
+	z /= norm;
+	auto axis = x * e1 + y * e2 + z * e3;
+
+	auto pseudoscalar = e1 * e2 * e3;
+	auto exponent = axis * pseudoscalar;
+
+	auto left_multiply = cos(-1 * angle) + exponent * sin(-1 * angle);
+	auto right_multiply = cos(angle) + exponent * sin(angle);
+
+	auto current = x_ * e1 + y_ * e2 + z_ * e3;
+	auto result = left_multiply * current * right_multiply;
+
+	double result_x = rnorm(result | e1);
+	double result_y = rnorm(result | e2);
+	double result_z = rnorm(result | e3);
+
+	x_ = result_x;
+	y_ = result_y;
+	z_ = result_z;
 }
 
 void gp::Point::dilate(double scale_factor)
@@ -58,4 +84,9 @@ void gp::Point::show(CanvasDrawingSession^ current_drawing_session)
 
 	// draw projected point to screen
 	display_->showPoint(projected_point.first, projected_point.second, current_drawing_session);
+}
+
+std::tuple<double, double, double> gp::Point::getLocation()
+{
+	return { x_, y_, z_ };
 }

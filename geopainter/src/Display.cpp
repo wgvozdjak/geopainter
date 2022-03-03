@@ -93,7 +93,9 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	double x_coordinate = rnorm(point_x_projection);
 	double y_coordinate = rnorm(point_y_projection);
 
-	return { x_coordinate * 300, y_coordinate * 300 };
+	// used to be 300
+	int factor = 50;
+	return { x_coordinate * factor, y_coordinate * factor };
 }
 
 void gp::Display::showPoint(double x, double y, CanvasDrawingSession^ current_drawing_session)
