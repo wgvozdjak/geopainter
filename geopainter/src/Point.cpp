@@ -41,15 +41,18 @@ void gp::Point::rotate(double x, double y, double z, double angle)
 	auto pseudoscalar = e1 * e2 * e3;
 	auto exponent = axis * pseudoscalar;
 
-	auto left_multiply = cos(-1 * angle) + exponent * sin(-1 * angle);
-	auto right_multiply = cos(angle) + exponent * sin(angle);
+	auto left_multiply = cos(-1 * angle / 2) + exponent * sin(-1 * angle / 2);
+	auto right_multiply = cos(angle / 2) + exponent * sin(angle / 2);
 
 	auto current = x_ * e1 + y_ * e2 + z_ * e3;
 	auto result = left_multiply * current * right_multiply;
 
-	double result_x = rnorm(result | e1);
-	double result_y = rnorm(result | e2);
-	double result_z = rnorm(result | e3);
+	auto result_itr = result.values().begin();
+	double result_x = *result_itr;
+	result_itr++;
+	double result_y = *result_itr;
+	result_itr++;
+	double result_z = *result_itr;
 
 	x_ = result_x;
 	y_ = result_y;

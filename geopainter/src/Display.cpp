@@ -4,6 +4,8 @@
 
 #include <Microsoft.Graphics.Canvas.native.h>
 
+#include "debugapi.h"
+
 namespace gp = geopainter;
 
 using namespace ga4e;
@@ -94,7 +96,7 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	double y_coordinate = rnorm(point_y_projection);
 
 	// used to be 300
-	int factor = 50;
+	int factor = 300;
 	return { x_coordinate * factor, y_coordinate * factor };
 }
 
