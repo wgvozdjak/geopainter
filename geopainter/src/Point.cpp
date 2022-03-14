@@ -30,8 +30,12 @@ void gp::Point::move(double x, double y, double z)
 	z_ = z;
 }
 
-void gp::Point::rotate(double x, double y, double z, double angle)
+void gp::Point::rotate(std::tuple<double, double, double> axis_vector, double angle)
 {
+	double x = std::get<0>(axis_vector);
+	double y = std::get<1>(axis_vector);
+	double z = std::get<2>(axis_vector);
+
 	double norm = rnorm(x * e1 + y * e2 + z * e3);
 	x /= norm;
 	y /= norm;
@@ -57,6 +61,26 @@ void gp::Point::rotate(double x, double y, double z, double angle)
 	x_ = result_x;
 	y_ = result_y;
 	z_ = result_z;
+}
+
+void gp::Point::rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle)
+{
+	double axis_1_x = std::get<0>(axis_point_1);
+	double axis_1_y = std::get<1>(axis_point_1);
+	double axis_1_z = std::get<2>(axis_point_1);
+
+	double axis_2_x = std::get<0>(axis_point_2);
+	double axis_2_y = std::get<1>(axis_point_2);
+	double axis_2_z = std::get<2>(axis_point_2);
+
+	double axis_vector_x = axis_2_x - axis_1_x;
+	double axis_vector_y = axis_2_y - axis_1_y;
+	double axis_vector_z = axis_2_z - axis_1_z;
+
+
+	this->translate(-1 * axis_1_x, -1 * axis_1_y, -1 * axis_1_z);
+	this->rotate({ axis_vector_x, axis_vector_y, axis_vector_z }, angle);
+	this->translate(axis_1_x, axis_1_y, axis_1_z);
 }
 
 void gp::Point::dilate(double scale_factor)

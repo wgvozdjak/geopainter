@@ -22,10 +22,16 @@ void gp::Line::move(double x, double y, double z)
 	throw "geopainter::Line::move(double x, double y, double z) has not been implemented yet.";
 }
 
-void gp::Line::rotate(double x, double y, double z, double angle)
+void gp::Line::rotate(std::tuple<double, double, double> axis_vector, double angle)
 {
-	p1_->rotate(x, y, z, angle);
-	p2_->rotate(x, y, z, angle);
+	p1_->rotate(axis_vector, angle);
+	p2_->rotate(axis_vector, angle);
+}
+
+void gp::Line::rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle)
+{
+	p1_->rotate(axis_point_1, axis_point_2, angle);
+	p2_->rotate(axis_point_1, axis_point_2, angle);
 }
 
 void gp::Line::dilate(double scale_factor)

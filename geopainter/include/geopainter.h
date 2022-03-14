@@ -86,7 +86,8 @@ namespace geopainter
 		void erase();
 		virtual void translate(double dx, double dy, double dz) = 0;
 		virtual void move(double x, double y, double z) = 0;
-		virtual void rotate(double x, double y, double z, double angle) = 0;
+		virtual void rotate(std::tuple<double, double, double>, double angle) = 0;
+		virtual void rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle) = 0;
 		virtual void dilate(double scale_factor) = 0;
 		// TODO: virtual void setColor(color) = 0;
 		// TODO: virtual Color getColor() = 0;
@@ -105,7 +106,8 @@ namespace geopainter
 	public:
 		void translate(double dx, double dy, double dz);
 		void move(double x, double y, double z);
-		void rotate(double x, double y, double z, double angle);
+		void rotate(std::tuple<double, double, double>, double angle);
+		void rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle);
 		void dilate(double scale_factor);
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
@@ -135,7 +137,8 @@ namespace geopainter
 	public:
 		void translate(double dx, double dy, double dz);
 		void move(double x, double y, double z);
-		void rotate(double x, double y, double z, double angle);
+		void rotate(std::tuple<double, double, double>, double angle);
+		void rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle);
 		void dilate(double scale_factor);
 		// TODO: void setColor(color);
 		// TODO: Color getColor();
