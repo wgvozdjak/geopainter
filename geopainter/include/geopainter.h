@@ -28,6 +28,8 @@ namespace geopainter
 		friend class Display;
 
 	public:
+		void translate(double dx, double dy, double dz);
+
 	private:
 		Viewer();
 
@@ -46,7 +48,7 @@ namespace geopainter
 		// Creates a new Display attached to a CanvasDrawingSession object
 		//Display(CanvasDrawingSession^ drawing_session);
 		Display();
-		// TODO: Viewer getViewer()
+		Viewer* getViewer();
 
 		// Returns a pointer to a new Point object at coordinates (x, y, z)
 		Point* createPoint(double x, double y, double z);
@@ -76,7 +78,7 @@ namespace geopainter
 		void removeShape(Shape* shape);
 
 		std::unordered_set<Shape*> list_of_shapes_;
-		Viewer viewer_;
+		Viewer* viewer_;
 	};
 
 	class GEOPAINTER_API Shape

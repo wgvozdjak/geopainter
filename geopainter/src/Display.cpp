@@ -13,7 +13,12 @@ using namespace Microsoft::Graphics::Canvas;
 
 gp::Display::Display()
 {
-	gp::Viewer viewer_;
+	viewer_ = new Viewer();
+}
+
+gp::Viewer* gp::Display::getViewer()
+{
+	return viewer_;
 }
 
 gp::Point* gp::Display::createPoint(double x, double y, double z)
@@ -57,7 +62,7 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 {
 	// --- PROJECT POINT (x, y, z) IN 4D ---
 	// get location of viewer/focus
-	std::tuple<double, double, double> viewer_location = viewer_.getLocation();
+	std::tuple<double, double, double> viewer_location = viewer_->getLocation();
 
 	// initialize geometric algebra objects: point to be projected, points on plane, and viewer/focus
 	auto point_to_project = e1 * x + e2 * y + e3 * z + e4;
