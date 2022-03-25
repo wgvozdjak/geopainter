@@ -60,6 +60,17 @@ void gp::Display::deleteAll()
 
 std::pair<double, double> gp::Display::projectLocation(double x, double y, double z)
 {
+	// get location of viewing plane into a more usable format
+	std::tuple<
+		std::tuple<double, double, double>,
+		std::tuple<double, double, double>,
+		std::tuple<double, double, double>
+	> viewing_plane = viewer_->getViewingPlane();
+
+	std::tuple<double, double, double> plane_point_1 = std::get<0>(viewing_plane);
+	std::tuple<double, double, double> plane_point_2 = std::get<1>(viewing_plane);
+	std::tuple<double, double, double> plane_point_3 = std::get<2>(viewing_plane);
+
 	// --- PROJECT POINT (x, y, z) IN 4D ---
 	// get location of viewer/focus
 	std::tuple<double, double, double> viewer_location = viewer_->getLocation();
@@ -67,11 +78,27 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	// initialize geometric algebra objects: point to be projected, points on plane, and viewer/focus
 	auto point_to_project = e1 * x + e2 * y + e3 * z + e4;
 
+	// TODO: double check whether this is the right way to go about this
 	auto z_displacement = -0.75 * e3;
 
-	auto plane_origin = e4 + z_displacement;
-	auto plane_direction_one = e4 + e1 + z_displacement;
-	auto plane_direction_two = e4 + e2 + z_displacement;
+	auto plane_origin =
+		e4 + 
+		e1 * std::get<0>(plane_point_1) + 
+		e2 * std::get<1>(plane_point_1) + 
+		e3 * std::get<2>(plane_point_1) + 
+		z_displacement;
+	auto plane_direction_one = 
+		e4 +
+		e1 * std::get<0>(plane_point_2) +
+		e2 * std::get<1>(plane_point_2) +
+		e3 * std::get<2>(plane_point_2) +
+		z_displacement;
+	auto plane_direction_two = 
+		e4 +
+		e1 * std::get<0>(plane_point_3) +
+		e2 * std::get<1>(plane_point_3) +
+		e3 * std::get<2>(plane_point_3) +
+		z_displacement;
 
 	auto focus = e1 * std::get<0>(viewer_location) + e2 * std::get<1>(viewer_location) + e3 * std::get<2>(viewer_location) + e4;
 

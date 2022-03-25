@@ -28,16 +28,53 @@ namespace geopainter
 		friend class Display;
 
 	public:
+		// Translates the viewer's x-coordinate by dx, y-coordinate by dy, and z-coordinate by dz
 		void translate(double dx, double dy, double dz);
 
-	private:
-		Viewer();
+		// Rotates the viewer by angle counterclockwise around the line through the viewer and viewer plus axis_vector
+		void rotate(std::tuple<double, double, double> axis_vector, double angle);
+
+		// Rotates the viewer by angle counterclockwise around the line through axis_point_1 and axis_point_2
+		void rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle);
+
 
 		std::tuple<double, double, double> getLocation();
 
+		std::tuple<
+			std::tuple<double, double, double>,
+			std::tuple<double, double, double>,
+			std::tuple<double, double, double>
+		> getViewingPlane();
+	private:
+		// Creates a new Viewer object
+		Viewer();
+
+		// Returns the location of the Viewer as an std::tuple
+		//std::tuple<double, double, double> getLocation();
+
+		// Returns points defining viewing plane as an std::tuple
+		// TODO: should this be split into multiple methods, or is there just a better way to do this in general?
+		/*std::tuple<
+			std::tuple<double, double, double>,
+			std::tuple<double, double, double>,
+			std::tuple<double, double, double>
+		> getViewingPlane();*/
+
+		// Rotates point around axis through axis and origin by angle
+		std::tuple<double, double, double> rotateLocation(
+			std::tuple<double, double, double> point, 
+			std::tuple<double, double, double> axis_vector, 
+			double angle
+		);
+
+		// Current coordinates of the Viewer
 		double x_;
 		double y_;
 		double z_;
+
+		std::tuple<double, double, double> plane_point_1_;
+		std::tuple<double, double, double> plane_point_2_;
+		std::tuple<double, double, double> plane_point_3_;
 	};
 
 	class GEOPAINTER_API Display
@@ -45,9 +82,10 @@ namespace geopainter
 	public:
 		friend class Shape;
 
-		// Creates a new Display attached to a CanvasDrawingSession object
-		//Display(CanvasDrawingSession^ drawing_session);
+		// Creates a new Display object
 		Display();
+
+		// Returns a pointer to the Viewer object associated with the Display
 		Viewer* getViewer();
 
 		// Returns a pointer to a new Point object at coordinates (x, y, z)
@@ -58,7 +96,11 @@ namespace geopainter
 
 		// TODO: Polygon createPolygon(vector<Point> vertices)
 		// TODO: Bag createBag(vector<Shape> shapes)
+
+		// Removes the shape from the buffer and deletes the shape
 		void deleteShape(Shape* shape);
+
+		// Removes all shapes from the buffer and deletes all shapes
 		void deleteAll();
 
 		// TODO: find better word for buffer
@@ -74,7 +116,10 @@ namespace geopainter
 		void showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint, CanvasDrawingSession^ current_drawing_session);
 
 	private:
+		// Adds the pointer to a shape to the buffer
 		void addShape(Shape* shape);
+
+		// Removes the pointer to a shape from the buffer
 		void removeShape(Shape* shape);
 
 		std::unordered_set<Shape*> list_of_shapes_;

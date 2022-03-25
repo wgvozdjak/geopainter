@@ -77,7 +77,6 @@ void gp::Point::rotate(std::tuple<double, double, double> axis_point_1, std::tup
 	double axis_vector_y = axis_2_y - axis_1_y;
 	double axis_vector_z = axis_2_z - axis_1_z;
 
-
 	this->translate(-1 * axis_1_x, -1 * axis_1_y, -1 * axis_1_z);
 	this->rotate({ axis_vector_x, axis_vector_y, axis_vector_z }, angle);
 	this->translate(axis_1_x, axis_1_y, axis_1_z);
