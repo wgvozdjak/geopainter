@@ -132,14 +132,28 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	return { x_coordinate * factor, y_coordinate * factor };
 }
 
-void gp::Display::showPoint(double x, double y, CanvasDrawingSession^ current_drawing_session)
+void gp::Display::showPoint(double x, double y, Color* color, CanvasDrawingSession^ current_drawing_session)
 {
-	current_drawing_session->DrawCircle(x, y, 1, Windows::UI::Colors::Red, 1);
+	std::tuple<unsigned char, unsigned char, unsigned char, unsigned char> color_tuple = color->getRGBAHex();
+	unsigned char red = std::get<0>(color_tuple);
+	unsigned char green = std::get<1>(color_tuple);
+	unsigned char blue = std::get<2>(color_tuple);
+	unsigned char alpha = std::get<3>(color_tuple);
+
+	Windows::UI::Color winui_color = Windows::UI::ColorHelper::FromArgb(alpha, red, green, blue);
+	current_drawing_session->DrawCircle(x, y, 1, winui_color, 1);
 }
 
-void gp::Display::showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint, CanvasDrawingSession^ current_drawing_session)
+void gp::Display::showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint, Color* color, CanvasDrawingSession^ current_drawing_session)
 {
-	current_drawing_session->DrawLine(first_endpoint.first, first_endpoint.second, second_endpoint.first, second_endpoint.second, Windows::UI::Colors::Black, 1);
+	std::tuple<unsigned char, unsigned char, unsigned char, unsigned char> color_tuple = color->getRGBAHex();
+	unsigned char red = std::get<0>(color_tuple);
+	unsigned char green = std::get<1>(color_tuple);
+	unsigned char blue = std::get<2>(color_tuple);
+	unsigned char alpha = std::get<3>(color_tuple);
+
+	Windows::UI::Color winui_color = Windows::UI::ColorHelper::FromArgb(alpha, red, green, blue);
+	current_drawing_session->DrawLine(first_endpoint.first, first_endpoint.second, second_endpoint.first, second_endpoint.second, winui_color, 1);
 }
 
 void gp::Display::flip(CanvasDrawingSession^ drawing_session)

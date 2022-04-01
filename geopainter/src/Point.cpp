@@ -109,7 +109,7 @@ void gp::Point::show(CanvasDrawingSession^ current_drawing_session)
 	std::pair<double, double> projected_point = display_->projectLocation(x_, y_, z_);
 
 	// draw projected point to screen
-	display_->showPoint(projected_point.first, projected_point.second, current_drawing_session);
+	display_->showPoint(projected_point.first, projected_point.second, color_, current_drawing_session);
 }
 
 std::tuple<double, double, double> gp::Point::getLocation()

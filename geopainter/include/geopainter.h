@@ -22,6 +22,7 @@ namespace geopainter
 	class Shape;
 	class Point;
 	class Line;
+	class Color;
 
 	class GEOPAINTER_API Viewer
 	{
@@ -112,8 +113,8 @@ namespace geopainter
 
 		// TODO: find a way to not expose this to the user
 		std::pair<double, double> projectLocation(double x, double y, double z);
-		void showPoint(double x, double y, CanvasDrawingSession^ current_drawing_session);
-		void showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint, CanvasDrawingSession^ current_drawing_session);
+		void showPoint(double x, double y, Color* color, CanvasDrawingSession^ current_drawing_session);
+		void showLine(std::pair<double, double> first_endpoint, std::pair<double, double> second_endpoint, Color* color, CanvasDrawingSession^ current_drawing_session);
 
 	private:
 		// Adds the pointer to a shape to the buffer
@@ -129,6 +130,9 @@ namespace geopainter
 	class GEOPAINTER_API Shape
 	{
 	public:
+		// TODO: revisit visibility of this
+		~Shape();
+
 		void draw();
 		void erase();
 		virtual void translate(double dx, double dy, double dz) = 0;
@@ -136,14 +140,16 @@ namespace geopainter
 		virtual void rotate(std::tuple<double, double, double>, double angle) = 0;
 		virtual void rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle) = 0;
 		virtual void dilate(double scale_factor) = 0;
-		// TODO: virtual void setColor(color) = 0;
+		void setColor(Color* color);
 		// TODO: virtual Color getColor() = 0;
 
 		// TODO: revisit visibility of this
 		virtual void show(CanvasDrawingSession^ current_drawing_session) = 0;
 
 	protected:
+		Shape();
 		Display* display_;
+		Color* color_;
 	};
 
 	class GEOPAINTER_API Point : public Shape
@@ -200,6 +206,36 @@ namespace geopainter
 		Point* p2_;
 
 		Line(Display* display, Point* p1, Point* p2);
+	};
+
+	// TODO: decide whether I want my own Color class or should I just use the Windows Color class
+	class GEOPAINTER_API Color
+	{
+	public:
+		// Creates a new Color object according to the RGBA hex (red, green, blue, alpha)
+		// If alpha is not specified, it defaults to 255
+		Color(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255);
+
+		// Copy constructor that takes a pointer to a color object
+		Color(Color* color);
+
+		// Returns the RGBA hex of the Color object as an std::tuple
+		std::tuple<unsigned char, unsigned char, unsigned char, unsigned char> getRGBAHex();
+
+	private:
+		unsigned char red_;
+		unsigned char green_;
+		unsigned char blue_;
+		unsigned char alpha_;
+
+		// TODO: decide if this is better to use or whether I can just create a new object
+		// every time I flip
+		// Windows::UI::Color winui_color_;
+
+		// USEFUL METHODS
+		// Windows::UI::ColorHelper::FromArgb(a, b, c, d) returns a color object from ARGB hex (a, b, c, d)
+		// Windows::UI::ColorHelper::ToDisplayName(Color) returns
+		// https://docs.microsoft.com/en-us/uwp/api/windows.ui.colorhelper?view=winrt-22000
 	};
 }
 

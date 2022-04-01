@@ -46,7 +46,7 @@ void gp::Line::show(CanvasDrawingSession^ current_drawing_session)
 	std::pair<double, double> projected_second_endpoint = display_->projectLocation(p2_->getX(), p2_->getY(), p2_->getZ());
 
 	// draw projected point onto screen
-	display_->showLine(projected_first_endpoint, projected_second_endpoint, current_drawing_session);
+	display_->showLine(projected_first_endpoint, projected_second_endpoint, color_, current_drawing_session);
 }
 
 std::pair<std::tuple<double, double, double>, std::tuple<double, double, double>> gp::Line::getLocation()

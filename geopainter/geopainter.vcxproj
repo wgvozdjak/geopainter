@@ -257,6 +257,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\color.cpp" />
     <ClCompile Include="src\line.cpp" />
     <ClCompile Include="src\shape.cpp" />
     <ClCompile Include="src\display.cpp" />
