@@ -8,8 +8,16 @@
 
 namespace gp = geopainter;
 
+using namespace Platform;
 using namespace ga4e;
 using namespace Microsoft::Graphics::Canvas;
+
+void LogMessage(Object^ parameter)
+{
+	auto paraString = parameter->ToString();
+	auto formattedText = std::wstring(paraString->Data()).append(L"\r\n");
+	OutputDebugString(formattedText.c_str());
+}
 
 gp::Display::Display()
 {
@@ -79,28 +87,28 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	auto point_to_project = e1 * x + e2 * y + e3 * z + e4;
 
 	// TODO: double check whether this is the right way to go about this
-	auto z_displacement = -0.75 * e3;
+	//auto z_displacement = -0.75 * e3;
 
 	auto plane_origin =
-		e4 + 
-		e1 * std::get<0>(plane_point_1) + 
-		e2 * std::get<1>(plane_point_1) + 
-		e3 * std::get<2>(plane_point_1) + 
-		z_displacement;
-	auto plane_direction_one = 
+		e4 +
+		e1 * std::get<0>(plane_point_1) +
+		e2 * std::get<1>(plane_point_1) +
+		e3 * std::get<2>(plane_point_1);
+	auto plane_direction_one =
 		e4 +
 		e1 * std::get<0>(plane_point_2) +
 		e2 * std::get<1>(plane_point_2) +
-		e3 * std::get<2>(plane_point_2) +
-		z_displacement;
-	auto plane_direction_two = 
+		e3 * std::get<2>(plane_point_2);
+	auto plane_direction_two =
 		e4 +
 		e1 * std::get<0>(plane_point_3) +
 		e2 * std::get<1>(plane_point_3) +
-		e3 * std::get<2>(plane_point_3) +
-		z_displacement;
+		e3 * std::get<2>(plane_point_3);
 
-	auto focus = e1 * std::get<0>(viewer_location) + e2 * std::get<1>(viewer_location) + e3 * std::get<2>(viewer_location) + e4;
+	auto focus = e1 * std::get<0>(viewer_location) + 
+				 e2 * std::get<1>(viewer_location) + 
+				 e3 * std::get<2>(viewer_location) + 
+				 e4;
 
 	// find display plane: outer product of three points on plane
 	auto plane = plane_origin ^ plane_direction_one ^ plane_direction_two;
@@ -124,12 +132,20 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	auto point_x_projection = igp(point_relative_to_origin | plane_direction_one_vector, plane_direction_one_vector);
 	auto point_y_projection = igp(point_relative_to_origin | plane_direction_two_vector, plane_direction_two_vector);
 
-	double x_coordinate = rnorm(point_x_projection);
-	double y_coordinate = rnorm(point_y_projection);
+	double x_coordinate = point_x_projection | plane_direction_one_vector;
+	double y_coordinate = point_y_projection | plane_direction_two_vector;
 
 	// used to be 300
-	int factor = 300;
-	return { x_coordinate * factor, y_coordinate * factor };
+	int factor = 1500;
+
+	// center everything so (0, 0) is at center of sceen when in fullscreen on surface book
+	double x_center = 750;
+	double y_center = 465;
+
+	double return_x_coordinate = x_coordinate * factor + x_center;
+	double return_y_coordinate = y_coordinate * factor + y_center;
+	//LogMessage(return_x_coordinate + ", " + return_y_coordinate);
+	return { return_x_coordinate, return_y_coordinate };
 }
 
 void gp::Display::showPoint(double x, double y, Color* color, CanvasDrawingSession^ current_drawing_session)

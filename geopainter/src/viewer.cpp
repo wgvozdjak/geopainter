@@ -2,6 +2,7 @@
 #include "include/geopainter.h"
 #include "gatl/ga3e.hpp"
 
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 namespace gp = geopainter;
@@ -10,15 +11,24 @@ using namespace ga3e;
 
 gp::Viewer::Viewer()
 {
-	x_ = 2.0;
+	/*x_ = 2.0;
 	y_ = 2.0;
-	z_ = -7.75;
+	z_ = -7.75;*/
 
-	plane_point_1_ = { 0, 0, 0 };
+	x_ = 0.5;
+	y_ = 0.5;
+	z_ = 0.5;
+
+	/*plane_point_1_ = {0, 0, 0};
 	plane_point_2_ = { 1, 0, 0 };
-	plane_point_3_ = { 0, 1, 0 };
+	plane_point_3_ = { 0, 1, 0 };*/
+	
+	plane_point_1_ = { 0.5, 0.5, 0.75 };
+	plane_point_2_ = { 1.5, 0.5, 0.75 };
+	plane_point_3_ = { 0.5, 1.5, 0.75 };
 }
 
+// angle in radians
 std::tuple<double, double, double> gp::Viewer::rotateLocation(
 	std::tuple<double, double, double> point,
 	std::tuple<double, double, double> axis_vector,
@@ -75,6 +85,8 @@ void gp::Viewer::translate(double dx, double dy, double dz)
 
 void gp::Viewer::rotate(std::tuple<double, double, double> axis_vector, double angle)
 {
+	angle = angle / 180 * M_PI;
+
 	std::tuple<double, double, double> plane_point_1 = plane_point_1_;
 	std::tuple<double, double, double> plane_point_2 = plane_point_2_;
 	std::tuple<double, double, double> plane_point_3 = plane_point_3_;
@@ -115,6 +127,8 @@ void gp::Viewer::rotate(std::tuple<double, double, double> axis_vector, double a
 // TODO: avoid duplicated code
 void gp::Viewer::rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle)
 {
+	angle = angle / 180 * M_PI;
+
 	double viewer_x = x_;
 	double viewer_y = y_;
 	double viewer_z = z_;

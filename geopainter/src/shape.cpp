@@ -5,7 +5,7 @@ namespace gp = geopainter;
 
 gp::Shape::Shape()
 {
-	color_ = new gp::Color(255, 255, 255, 255);
+	color_ = new gp::Color(0, 0, 0, 255);
 }
 
 gp::Shape::~Shape()

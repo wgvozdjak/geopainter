@@ -2,6 +2,7 @@
 #include "include/geopainter.h"
 #include "gatl/ga3e.hpp"
 
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 namespace gp = geopainter;
@@ -32,6 +33,8 @@ void gp::Point::move(double x, double y, double z)
 
 void gp::Point::rotate(std::tuple<double, double, double> axis_vector, double angle)
 {
+	angle = angle / 180 * M_PI;
+
 	double x = std::get<0>(axis_vector);
 	double y = std::get<1>(axis_vector);
 	double z = std::get<2>(axis_vector);
