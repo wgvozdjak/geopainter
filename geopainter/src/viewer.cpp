@@ -11,21 +11,16 @@ using namespace ga3e;
 
 gp::Viewer::Viewer()
 {
-	/*x_ = 2.0;
-	y_ = 2.0;
-	z_ = -7.75;*/
-
 	x_ = 0.5;
 	y_ = 0.5;
 	z_ = 0.5;
 
-	/*plane_point_1_ = {0, 0, 0};
-	plane_point_2_ = { 1, 0, 0 };
-	plane_point_3_ = { 0, 1, 0 };*/
+	// for ratio of 1:40 (like cameras?), use focal_length = 0.1
+	double focal_length = 0.5;
 	
-	plane_point_1_ = { 0.5, 0.5, 0.75 };
-	plane_point_2_ = { 1.5, 0.5, 0.75 };
-	plane_point_3_ = { 0.5, 1.5, 0.75 };
+	plane_point_1_ = { 0.5, 0.5, 0.5 + focal_length };
+	plane_point_2_ = { 1.5, 0.5, 0.5 + focal_length };
+	plane_point_3_ = { 0.5, 1.5, 0.5 + focal_length };
 }
 
 // angle in radians
