@@ -4,6 +4,7 @@
 
 #include <Microsoft.Graphics.Canvas.native.h>
 
+#include <cmath>
 #include "debugapi.h"
 
 namespace gp = geopainter;
@@ -119,9 +120,20 @@ std::pair<double, double> gp::Display::projectLocation(double x, double y, doubl
 	// intersect plane and line
 	auto intersection = rp(plane, line);
 
-	// scale intersection down so that the coefficient of extra coordinate (of e4) is zero
+	// scale intersection down so that the coefficient of extra coordinate (of e4) is one
 	// intersection | e4 is equal to the coefficient of e4
 	auto scaled_intersection = intersection / (intersection | e4);
+
+	// check if point is behind viewer (if point is behind viewer, then dot product
+	auto vector_to_point_to_project = point_to_project - focus;
+	auto vector_to_scaled_intersection = scaled_intersection - focus;
+
+	double dot_product = vector_to_point_to_project | vector_to_scaled_intersection;
+	if (dot_product < 0)
+	{
+		// the point is behind the viewer, return pair of nans
+		return { nan(""), nan("") };
+	}
 	
 	// --- COMPUTE 2D COORDINATES TO BE USED IN DRAWING FROM 4D COORDINATES ---
 	auto point_relative_to_origin = scaled_intersection - plane_origin;
@@ -157,6 +169,7 @@ void gp::Display::showPoint(double x, double y, Color* color, CanvasDrawingSessi
 	unsigned char alpha = std::get<3>(color_tuple);
 
 	Windows::UI::Color winui_color = Windows::UI::ColorHelper::FromArgb(alpha, red, green, blue);
+
 	current_drawing_session->DrawCircle(x, y, 1, winui_color, 1);
 }
 
