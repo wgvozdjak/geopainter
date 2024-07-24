@@ -69,7 +69,6 @@ Viewer objects are instantiated when a `Display` object is created and should no
 | `rotate(std::tuple<double, double, double> axis_vector, double angle)` | Rotates the location of the Viewer by `angle` radians around line through the origin and parallel to the vector `axis_vector` |
 | `rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle)` | Rotates the location of the Viewer by `angle` radians around the line through `axis_point_1` and `axis_point_2` |
 | `rotateLocation(std::tuple<double, double, double> point, std::tuple<double, double, double> axis_vector, double angle)` | Rotates the location of the Viewer by `angle` radians around the line through `point` and parallel to the vector `axis_vector` |
-|
 
 ### Color
 
