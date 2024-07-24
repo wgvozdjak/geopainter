@@ -137,7 +137,7 @@ namespace geopainter
 		void erase();
 		virtual void translate(double dx, double dy, double dz) = 0;
 		virtual void move(double x, double y, double z) = 0;
-		virtual void rotate(std::tuple<double, double, double>, double angle) = 0;
+		virtual void rotate(std::tuple<double, double, double> axis_vector, double angle) = 0;
 		virtual void rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle) = 0;
 		virtual void dilate(double scale_factor) = 0;
 		void setColor(Color* color);
