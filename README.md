@@ -47,8 +47,6 @@ Overall drawing board that must be created before any other functionalities are 
 | `getViewer()` | Returns the corresponding `Viewer` object |
 | `createPoint(double x, double y, double z)` | Returns a new `Point` object at coordinates (x, y, z) |
 | `createLine(gp::Point* p1, gp::Point* p2)` | Returns a new `Line` object with endpoints `p1*` and `p2*` |
-| DELETE THIS `addShape(gp::Shape* shape)` | Adds `shape*` to the list of shapes that will be drawn once `flip` is called |
-| DELETE THIS `removeShape(gp::Shape* shape)` | Removes `shape*` from the list of shapes that will be drawn once `flip` is called |
 | `deleteShape(gp::Shape* shape)` | Removes `shape*` from the list of shapes that will be drawn once `flip` is called and deletes the `shape` object |
 | `deleteAll()` | Removes all shapes from the list of shapes to be drawn once `flip` is called and deletes all shapes |
 | `flip(CanvasDrawingSession^ drawing_session)` | Draws all added shapes on `drawing_session` |
