@@ -46,8 +46,8 @@ Overall drawing board that must be created before any other functionalities are 
 | ------- | --------- |
 | `getViewer()` | Returns the corresponding `Viewer` object |
 | `createPoint(double x, double y, double z)` | Returns a new `Point` object at coordinates (x, y, z) |
-| `createLine(gp::Point* p1, gp::Point* p2)` | Returns a new `Line` object with endpoints `p1*` and `p2*` |
-| `deleteShape(gp::Shape* shape)` | Removes `shape*` from the list of shapes that will be drawn once `flip` is called and deletes the `shape` object |
+| `createLine(gp::Point* p1, gp::Point* p2)` | Returns a new `Line` object with endpoints `*p1` and `*p2` |
+| `deleteShape(gp::Shape* shape)` | Removes `*shape` from the list of shapes that will be drawn once `flip` is called and deletes the `shape` object |
 | `deleteAll()` | Removes all shapes from the list of shapes to be drawn once `flip` is called and deletes all shapes |
 | `flip(CanvasDrawingSession^ drawing_session)` | Draws all added shapes on `drawing_session` |
 
@@ -79,7 +79,7 @@ Represents one color that can be used to color various objects that are drawn on
 | Constructor | Description |
 | ------- | --------- |
 | `Color(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)` | Creates a new Color object with color corresponding to the RGBA tuple (red, green, blue, alpha) |
-| `Color(gp::Color* color)` | Creates a new `Color` object that is a duplicate of `color*` |
+| `Color(gp::Color* color)` | Creates a new `Color` object that is a duplicate of `*color` |
 
 #### Methods
 
@@ -105,7 +105,7 @@ An abstract class that should not be instantiated.
 | `move(double dx, double dy, double dz)` | Moves the Shape to the coordinates (`dx`, `dy`, `dz`). Currently only implemented for `Point` objects |
 | `rotate(std::tuple<double, double, double> axis_vector, double angle)` | Rotates the Shape by `angle` radians around the line through the origin parallel to the vector `axis_vector` |
 | `rotate(std::tuple<double, double, double> axis_point_1, std::tuple<double, double, double> axis_point_2, double angle)` | Rotates the shape by `angle` radians around the line through the points `axis_point_1` and `axis_point_2` |
-| `setColor(Color* color)` | Sets the color with which the Shape should be drawn to `color*` |
+| `setColor(Color* color)` | Sets the color with which the Shape should be drawn to `*color` |
 
 Note: `dilate` has not yet been implemented.
 
@@ -117,7 +117,7 @@ Represents a point in 3D space that can be drawn.
 
 | Constructor | Description |
 | ------- | --------- |
-| `Point(gp::Display* display, double x, double y, double z)` | Creates a point at coordinates (`x`, `y`, `z`) that can be drawn on the Display `display*` |
+| `Point(gp::Display* display, double x, double y, double z)` | Creates a point at coordinates (`x`, `y`, `z`) that can be drawn on the Display `*display` |
 
 #### Methods
 
@@ -135,7 +135,7 @@ Represents a line segment in 3D space that can be drawn.
 
 | Constructor | Description |
 | ------- | --------- |
-| `Line(gp::Display* display, gp::Point* p1, gp::Point* p2)` | Creates a line segment with endpoints at `p1*` and `p2*` that can be drawn on the Display `display*` |
+| `Line(gp::Display* display, gp::Point* p1, gp::Point* p2)` | Creates a line segment with endpoints at `*p1` and `*p2` that can be drawn on the Display `*display` |
 
 #### Methods
 
