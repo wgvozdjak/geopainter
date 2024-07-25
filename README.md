@@ -2,7 +2,7 @@
 
 Geopainter is a C++ DLL for 3D graphics, implementing basic drawing commands and manipulation of objects in space.
 
-Its mathematical computations are performed using geometric algebra, simplifying and (potentially) allowing for faster computations (note that the code in this project is largely unoptimized).
+Its mathematical computations are performed using geometric algebra, simplifying and potentially allowing for faster computations (note that the code in this project is largely unoptimized).
 
 ## 1. Contents
 
